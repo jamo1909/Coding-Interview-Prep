@@ -29,24 +29,36 @@ public class twoSum {
             return result;
         }
 
-    //Attempt 2
-    public int[] twoSumAttempt2(int[] nums, int target) {
-        Map<Integer, Integer> numMap = new HashMap<>(); //Declare Hashmap
-        int n = nums.length;
 
-        for (int i = 0; i < n; i++) {
-            numMap.put(nums[i], i); //Populate new hashmap with array items
+    public int[] twoSumAttempt2(int[] nums, int target) {
+        for(int i=0; i < nums.length; i++){
+            int num = target - nums[i];
+            for(int j=0; j < nums.length; j++){
+                if(i != j && nums[j] == num){
+                    return new int[] {i, j} ;
+                }
+            }
+        }
+        return null;
+    }
+
+    //Attempt 2
+    public int[] twoSumAttempt3(int[] nums, int target) {
+        Map<Integer, Integer> numMap = new HashMap<>();
+
+        for(int i=0; i < nums.length; i++){
+            numMap.put(nums[i], i);
         }
 
-        // Find the complement
-        for (int i = 0; i < n; i++) {
-            int complement = target - nums[i];//Complement is equal to minus the current item from the target, to get the number we are looking for.
-            if (numMap.containsKey(complement) && numMap.get(complement) != i) {//Check the hashmap is in the hashmap, and make sure that its not the same numbers that we have used to get the complement
-                return new int[]{i, numMap.get(complement)};// Return an array with the item that we're on and the key on the complement
+        for(int j=0; j < nums.length; j++){
+            int comp = target - nums[j];
+
+            if(numMap.containsKey(comp) && numMap.get(comp) != j){
+                return new int[]{j, numMap.get(comp)};
             }
         }
 
-        return new int[]{}; //If no solution found return an empty array
+        return null;
     }
 
 }
